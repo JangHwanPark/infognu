@@ -1,4 +1,4 @@
-import { getConnection } from '../../lib/db';
+import { getConnection } from '@/lib/db';
 import { ResultSetHeader } from 'mysql2/promise';
 import { NextApiRequest, NextApiResponse } from "next";
 
