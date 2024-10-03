@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import './subject.css';
 import Navigation from "@/components/Navigation";
+import TimeTableRow from "@/components/TimeTableRow";
+import EnrollmentSubjects from "@/app/api/EnrollmentSubjects";
 
 export default function SubjectManagement() {
   const [form, setForm] = useState({
@@ -39,6 +41,45 @@ export default function SubjectManagement() {
     console.log(form);
   };
 
+  const someBaseData =
+      {
+        "depts": [
+          {
+            "deptCode": "CSE",
+            "deptName": "Computer Science",
+            "grade": [
+              {
+                "year": 1,
+                "classes": ["A", "B"]
+              },
+              {
+                "year": 2,
+                "classes": ["A", "B", "C"]
+              }
+            ]
+          },
+          {
+            "deptCode": "EEE",
+            "deptName": "Electrical Engineering",
+            "grade": [
+              {
+                "year": 1,
+                "classes": ["A"]
+              },
+              {
+                "year": 3,
+                "classes": ["A", "B"]
+              }
+            ]
+          }
+        ],
+        "timeMeta": {
+          "maxTime": 9
+        },
+        "rooms": ["강의실1", "강의실2", "강의실3"]
+      }
+  ;
+
   return (
       <div id="container">
         <Navigation/>
@@ -74,21 +115,8 @@ export default function SubjectManagement() {
           </div>
         </header>
 
-        <div id="subject-list">
-          <h2>등록과목</h2>
-          <div id="subject-table">
-            <div className="list-header clearfix">
-              <div className="subject-no">과목번호</div>
-              <div className="subject-title">과목명</div>
-              <div className="subject-category">과목구분</div>
-              <div className="subject-credit">학점</div>
-              <div className="subject-theory">이론</div>
-              <div className="subject-training">실습</div>
-              <div className="subject-departmentName">과목등록학과</div>
-              <div className="subject-summary">과목개요</div>
-            </div>
-          </div>
-        </div>
+        <EnrollmentSubjects/>
+        <TimeTableRow baseData={someBaseData} time={0} />
 
         <footer>
           <div id="modal">
