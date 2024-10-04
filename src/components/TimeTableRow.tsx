@@ -16,58 +16,66 @@ const TimeTableRow = ({ baseData, time }: { baseData: any; time: number }) => {
 
     // 강의실 변경 이벤트 핸들러
     const handleRoomChange = (idNo: string, value: string) => {
-        setSelectedRoom((prev) => ({ ...prev, [idNo]: value }));
+        setSelectedRoom((prev) => ({
+            ...prev,
+            [idNo]: value
+        }));
     };
 
     return (
-        <tr className={`TR${tCode[time]}`}>
-            <th
-                style={{ minWidth: '60px', borderRight: '1px solid #aaa' }}
-                className="deletezone"
-                title="시간표 상에 배정된 과목을 이 영역에 끌어 놓으면 삭제할 수 있습니다."
-            >
-                {time + 1}교시
-            </th>
-            {Array.from({ length: weekEnd - weekStart + 1 }).map((_, w) => (
-                baseData.depts.map((dept: any, dIndex: number) =>
-                    dept.grade.map((grade: any, gIndex: number) =>
-                        grade.classes.map((className: string, cIndex: number) => {
-                            const idNo = `${w}${dept.deptCode}${grade.year}${className}${tCode[time]}`;
-                            const tdStyle: React.CSSProperties = {
-                                color: '#bbb',
-                                borderRight:
-                                    dIndex === baseData.depts.length - 1 &&
-                                    gIndex === dept.grade.length - 1 &&
-                                    cIndex === grade.classes.length - 1
-                                        ? '1px solid #aaa'
-                                        : '1px dotted #ccc',
-                                display: weekDisplayTag[w] === 0 ? 'none' : undefined,
-                            };
+        <table>
+            <tbody>
+                <tr className={`TR${tCode[time]}`}>
+                <th
+                    style={{minWidth: '60px', borderRight: '1px solid #aaa'}}
+                    className="deletezone"
+                    title="시간표 상에 배정된 과목을 이 영역에 끌어 놓으면 삭제할 수 있습니다."
+                >
+                    {time + 1}교시
+                </th>
+                {Array.from({length: weekEnd - weekStart + 1}).map((_, w) => (
+                    baseData.depts.map((dept: any, dIndex: number) =>
+                        dept.grade.map((grade: any, gIndex: number) =>
+                            grade.classes.map((className: string, cIndex: number) => {
+                                const idNo = `${w}${dept.deptCode}${grade.year}${className}${tCode[time]}`;
+                                const tdStyle: React.CSSProperties = {
+                                    color: '#bbb',
+                                    borderRight:
+                                        dIndex === baseData.depts.length - 1 &&
+                                        gIndex === dept.grade.length - 1 &&
+                                        cIndex === grade.classes.length - 1
+                                            ? '1px solid #aaa'
+                                            : '1px dotted #ccc',
+                                    display: weekDisplayTag[w] === 0 ? 'none' : undefined,
+                                };
 
-                            return (
-                                <td key={idNo} id={`C${idNo}`} style={tdStyle} className={`T${w}${tCode[time]} ${dept.deptCode} dept${dIndex + 1} ${weekClass[w]}`}>
-                                    <div className="dropzone" title="화면 하단의 과목 중 배정을 원하는 과목을 선택하여 이 영역에 끌어 놓으세요." />
-                                    <select
-                                        className="room"
-                                        id={`R${idNo}`}
-                                        title="강의실이 배정되지 않은 경우 '강의실' 또는 '온라인'을 선택한 후 진행하세요."
-                                        value={selectedRoom[idNo] || '강의실'}
-                                        onChange={(e) => handleRoomChange(idNo, e.target.value)}
-                                    >
-                                        <option value="강의실">강의실</option>
-                                        {room.map((r) => (
-                                            <option key={r} value={r}>
-                                                {r}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            );
-                        })
+                                return (
+                                    <td key={idNo} id={`C${idNo}`} style={tdStyle}
+                                        className={`T${w}${tCode[time]} ${dept.deptCode} dept${dIndex + 1} ${weekClass[w]}`}>
+                                        <div className="dropzone" title="화면 하단의 과목 중 배정을 원하는 과목을 선택하여 이 영역에 끌어 놓으세요."/>
+                                        <select
+                                            className="room"
+                                            id={`R${idNo}`}
+                                            title="강의실이 배정되지 않은 경우 '강의실' 또는 '온라인'을 선택한 후 진행하세요."
+                                            value={selectedRoom[idNo] || '강의실'}
+                                            onChange={(e) => handleRoomChange(idNo, e.target.value)}
+                                        >
+                                            <option value="강의실">강의실</option>
+                                            {room.map((r) => (
+                                                <option key={r} value={r}>
+                                                    {r}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                );
+                            })
+                        )
                     )
-                )
-            ))}
-        </tr>
+                ))}
+            </tr>
+            </tbody>
+        </table>
     );
 };
 

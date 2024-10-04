@@ -1,0 +1,104 @@
+{
+  "timeMeta": {
+    "weekStart": 1,
+    "weekEnd": 5,
+    "maxTime": 10
+  },
+  "rooms": ["온라인", "진308", "진315", "진319", "진320", "강석봉"],
+  "depts": [
+    {
+      "deptCode": "CSE",
+      "deptName": "컴퓨터공학과",
+      "grade": [
+        {
+          "year": 1,
+          "classes": ["1반", "2반"],
+          "lects": [
+            {
+              "code": "CSE101",
+              "title": "자료구조",
+              "prof": "PROF001",
+              "profName": "김교수",
+              "grade": 1,
+              "category": "전공필수"
+            },
+            {
+              "code": "CSE102",
+              "title": "컴퓨터구조",
+              "prof": "PROF002",
+              "profName": "이교수",
+              "grade": 1,
+              "category": "전공필수"
+            }
+          ]
+        },
+        {
+          "year": 2,
+          "classes": ["1반"],
+          "lects": [
+            {
+              "code": "CSE201",
+              "title": "알고리즘",
+              "prof": "PROF003",
+              "profName": "박교수",
+              "grade": 2,
+              "category": "전공선택"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "deptCode": "MATH",
+      "deptName": "수학과",
+      "grade": [
+        {
+          "year": 1,
+          "classes": ["1반"],
+          "lects": [
+            {
+              "code": "MATH101",
+              "title": "미적분학",
+              "prof": "PROF004",
+              "profName": "최교수",
+              "grade": 1,
+              "category": "기초필수"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "timeTable": [
+    {
+      "week": 1,
+      "time": 2,
+      "deptCode": "CSE",
+      "grade": 1,
+      "class": "1반",
+      "lectCode": "CSE101",
+      "profCode": "PROF001",
+      "room": "진315"
+    },
+    {
+      "week": 2,
+      "time": 3,
+      "deptCode": "CSE",
+      "grade": 1,
+      "class": "2반",
+      "lectCode": "CSE102",
+      "profCode": "PROF002",
+      "room": "진320"
+    },
+    {
+      "week": 3,
+      "time": 1,
+      "deptCode": "MATH",
+      "grade": 1,
+      "class": "1반",
+      "lectCode": "MATH101",
+      "profCode": "PROF004",
+      "room": "강석봉"
+    }
+  ]
+}

@@ -45,7 +45,9 @@ const Page = async () => {
                         <SelectWeeks weeks={weeks}/>
                     </div>
                 </div>
-                <div id="time-table"></div>
+                <div id="time-table">
+
+                </div>
 
                 {/* 버튼 */}
                 <div id="buttons">

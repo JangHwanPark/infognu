@@ -1,37 +1,64 @@
-import { NextResponse } from 'next/server';
+import {NextResponse} from 'next/server';
+import {connectToDatabase} from '@/config/database'; // DB 연결 파일을 가져옴
 
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
+    const {searchParams} = new URL(request.url);
 
-    // Todo y, s date 함수로 변경
-    const dept: string = searchParams.get('d') ?? '';
-    const year: string = searchParams.get('y') ?? '2024';
-    const semester: string = searchParams.get('s') ?? '1';
+    const dept = searchParams.get('d') ?? '';
+    const year = searchParams.get('y') ?? '2024';
+    const semester = searchParams.get('s') ?? '1';
 
     if (!dept) {
-        return NextResponse.json({ error: '학과 코드가 누락되었습니다.' }, { status: 400 });
+        return NextResponse.json({error: '학과 코드가 누락되었습니다.', status: 400});
     }
 
-    // DB 연동 또는 데이터 가져오기 로직
-    const timetableData = await fetchTimetableData(dept, year, semester);
-
-    return NextResponse.json(timetableData);
+    try {
+        // DB에서 시간표 데이터를 조회
+        const timetableData = await fetchTimetableData(dept, year, semester);
+        return NextResponse.json(timetableData);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({error: '데이터베이스 조회 중 오류가 발생했습니다.', status: 500});
+    }
 }
 
 async function fetchTimetableData(dept: string, year: string, semester: string) {
-    // 실제로는 DB 또는 API를 통해 데이터를 가져오는 로직을 구현해야 함
-    // 더미 데이터 반환 예시
-    return [
-        {
+    try {/*
+        const query = `
+            SELECT tt.year,
+                   tt.semester,
+                   tt.dept,
+                   tt.grade,
+                   tt.class,
+                   l.time,
+                   l.week,
+                   l.name,
+                   l.prof,
+                   l.room,
+                   l.desc
+            FROM Timetable tt
+                     JOIN Lecture l ON tt.id = l.timetableId
+            WHERE tt.dept = ?
+              AND tt.year = ?
+              AND tt.semester = ?
+        `;*/
+
+        const query = `
+         select * from 안산_강의시간표`
+
+        const [rows] = await connectToDatabase.query(query, [dept, year, semester]);
+        console.log("데이터: " + rows)
+
+        // 시간표 데이터 가공
+        const timetable = {
             year: year,
             semester: semester,
             dept: dept,
-            grade: "3",
-            class: "A",
-            lect: [
-                { time: 1, week: 1, name: "수학", prof: "김교수", room: "101", desc: "기초 수학 수업" },
-                { time: 2, week: 3, name: "영어", prof: "이교수", room: "202", desc: "기초 영어 수업" }
-            ]
-        }
-    ];
+            lectures: rows
+        };
+
+        return timetable;
+    } catch (error) {
+        throw new Error(`데이터 조회 중 오류가 발생했습니다: ${error.message}`);
+    }
 }

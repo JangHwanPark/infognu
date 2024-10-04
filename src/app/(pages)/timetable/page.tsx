@@ -23,6 +23,7 @@ interface Timetable {
 export default function Timetable() {
     // useState에 타입 명시
     const [timetableData, setTimetableData] = useState<Timetable[]>([]);
+    const [hydrated, setHydrated] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,12 +42,24 @@ export default function Timetable() {
         fetchData();
     }, []);
 
+    // 클라이언트에서만 렌더링하도록 설정
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
+
+    if (!hydrated) {
+        // 서버와 클라이언트가 일치하도록 임시 UI를 반환
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
             {timetableData.map((timetable, index) => (
                 <div key={index}>
-                    <h1>{timetable.year}학년도 {timetable.semester}학기 {timetable.dept} {timetable.grade}학년 {timetable.class}반
-                        강의시간표</h1>
+                    <h1>
+                        {timetable.year}학년도 {timetable.semester}학기 {timetable.dept} {timetable.grade}학년 {timetable.class}반
+                        강의시간표
+                    </h1>
                     <table>
                         <thead>
                         <tr>
@@ -62,11 +75,9 @@ export default function Timetable() {
                         {timetable.lect.map((lect, idx) => (
                             <tr key={idx}>
                                 <td>{lect.time}</td>
-                                <td>{lect.week === 1 ? lect.name : ''}</td>
-                                <td>{lect.week === 2 ? lect.name : ''}</td>
-                                <td>{lect.week === 3 ? lect.name : ''}</td>
-                                <td>{lect.week === 4 ? lect.name : ''}</td>
-                                <td>{lect.week === 5 ? lect.name : ''}</td>
+                                {[1, 2, 3, 4, 5].map((day) => (
+                                    <td key={day}>{lect.week === day ? lect.name : ''}</td>
+                                ))}
                             </tr>
                         ))}
                         </tbody>

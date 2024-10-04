@@ -10,3 +10,19 @@ export async function connectToDatabase() {
 
     return connection;
 }
+
+// 비동기 함수 내부에서 연결 시도
+async function testConnection() {
+    try {
+        const connection = await connectToDatabase();
+        console.log("데이터베이스 연결 성공:", connection.config.database);
+
+        // 연결 종료 (옵션)
+        await connection.end();
+    } catch (error) {
+        console.error("데이터베이스 연결 실패:", error);
+    }
+}
+
+// 실행
+testConnection();
