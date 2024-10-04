@@ -48,8 +48,9 @@ export default async function SubjectManagement() {
     const baseUrl = typeof window === 'undefined'
         ? 'http://localhost:3000'  // 서버 측에서는 절대 경로 필요
         : '';  // 클라이언트 측에서는 상대 경로 사용
-    const data = await fetch(`${baseUrl}/api/example`)
-    console.log("\n데이터\n" + JSON.stringify(data))
+    const res = await fetch(`${baseUrl}/api/example`);  // 상대 경로 사용
+    const result = await res.json();
+    console.log(`데이터 ${result.data}`)
 
     return (
         <div id="container">

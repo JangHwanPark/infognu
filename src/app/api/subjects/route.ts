@@ -1,4 +1,4 @@
-import { getConnection } from '@/lib/db';
+import { connectToDatabase } from '@/lib/database';
 import { ResultSetHeader } from 'mysql2/promise';
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = JSON.parse(json || '{}');
     const curr = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    const connection = await getConnection();
+    const connection = await connectToDatabase();
 
     try {
         if (mode === 'c') {

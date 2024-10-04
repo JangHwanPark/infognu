@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {connectToDatabase} from "@/config/database";
+import {connectToDatabase} from "@/lib/database";
 
 export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);

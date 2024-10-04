@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server';
-import {connectToDatabase} from '@/config/database'; // DB 연결 파일을 가져옴
+import {connectToDatabase} from '@/lib/database'; // DB 연결 파일을 가져옴
 
 export async function GET(request: Request) {
     const {searchParams} = new URL(request.url);
