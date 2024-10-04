@@ -33,7 +33,7 @@ const SubjectsInformation = () => {
 
     const handleSubmit = () => {
         // 추가 기능 처리 로직
-        console.log(form);
+        console.log('추가기능 처리 로직' + form);
     };
 
     return (

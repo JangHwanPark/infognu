@@ -1,28 +1,22 @@
 import mysql from 'mysql2/promise';
 
 export async function connectToDatabase() {
-    const connection = await mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    });
-
-    return connection;
-}
-
-// 비동기 함수 내부에서 연결 시도
-async function testConnection() {
     try {
-        const connection = await connectToDatabase();
-        console.log("데이터베이스 연결 성공:", connection.config.database);
+        const connection = await mysql.createConnection({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+        });
 
-        // 연결 종료 (옵션)
-        await connection.end();
+        console.log("DB_HOST: " + process.env.DB_HOST)
+        console.log("DB_USER: " + process.env.DB_USER)
+        console.log("DB_PASSWORD: " + process.env.DB_PASSWORD)
+        console.log("DB_NAME: " + process.env.DB_NAME)
+        console.log("Connected to the database successfully");
+        return connection;
     } catch (error) {
-        console.error("데이터베이스 연결 실패:", error);
+        console.error('Error connecting to the database:', error);
+        throw error;  // 오류 발생 시 던지기
     }
 }
-
-// 실행
-testConnection();

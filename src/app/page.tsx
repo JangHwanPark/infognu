@@ -5,7 +5,7 @@ import EnrollmentSubjects from "@/components/EnrollmentSubjects";
 import SubjectsInformation from "@/components/SubjectsInformation";
 import ModalTimeTableSave from "@/components/ModalTimeTableSave";
 
-export default function SubjectManagement() {
+export default async function SubjectManagement() {
     const someBaseData =
         {
             "depts": [
@@ -45,6 +45,12 @@ export default function SubjectManagement() {
         }
     ;
 
+    const baseUrl = typeof window === 'undefined'
+        ? 'http://localhost:3000'  // 서버 측에서는 절대 경로 필요
+        : '';  // 클라이언트 측에서는 상대 경로 사용
+    const data = await fetch(`${baseUrl}/api/example`)
+    console.log("\n데이터\n" + JSON.stringify(data))
+
     return (
         <div id="container">
             <Navigation/>
@@ -57,6 +63,10 @@ export default function SubjectManagement() {
             <EnrollmentSubjects/>
             <TimeTableRow baseData={someBaseData} time={0}/>
 
+            <div>
+                <h2>테스트</h2>
+                <div></div>
+            </div>
             <footer>
                 <ModalTimeTableSave/>
                 <p>© 2021. All rights reserved.</p>
