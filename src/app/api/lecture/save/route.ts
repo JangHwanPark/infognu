@@ -3,7 +3,7 @@ import { connectToDatabase } from '@/lib/database';
 
 // 강의 정보를 저장하는 API 핸들러
 export async function POST(request: Request) {
-    let connection;
+    let connection: any;
 
     try {
         const body = await request.json();
@@ -20,7 +20,8 @@ export async function POST(request: Request) {
         }
 
         // 데이터베이스 연결
-        connection = await connectToDatabase();
+        const pool = await connectToDatabase();
+        connection = await pool.getConnection(); // 풀에서 연결 가져오기
 
         // 트랜잭션 시작
         await connection.beginTransaction();
@@ -77,7 +78,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ status: '-1', message: '데이터 처리 중 오류가 발생했습니다.' }, { status: 500 });
     } finally {
         if (connection) {
-            connection.end();
+            connection.release(); // 연결을 풀로 반환
         }
     }
 }
