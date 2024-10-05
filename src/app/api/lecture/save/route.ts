@@ -62,6 +62,10 @@ export async function POST(request: Request) {
 
         // 삭제된 강의 처리
         for (const deletedId of data.deleted) {
+            // 먼저 참조된 데이터 삭제 (안산_개설강좌정보 테이블에서)
+            await connection.execute(`DELETE FROM 안산_개설강좌정보 WHERE 교육과정번호 = ?`, [deletedId]);
+
+            // 그 후 부모 테이블에서 삭제
             await connection.execute(`DELETE FROM 안산_교육과정정보 WHERE 교육과정번호 = ?`, [deletedId]);
         }
 
