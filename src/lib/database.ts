@@ -4,7 +4,7 @@ export async function connectToDatabase() {
     console.log("Attempting to connect to the database..."); // 확인 로그 추가
 
     try {
-        const connection = await mysql.createPool({
+        const connection = await mysql.createConnection({
             host: process.env.NEXT_DB_HOST,
             user: process.env.NEXT_DB_USER,
             password: process.env.NEXT_DB_PASS,

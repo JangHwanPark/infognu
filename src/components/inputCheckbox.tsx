@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 
 const InputCheckbox = ({weekData}) => {
-    const [days, setDays] = useState(weekData.days);
+    const [days, setDays] = useState(weekData);
 
     // onChange 핸들러: 체크박스 상태 변경 시 호출
     const handleChange = (index: number) => {

@@ -1,5 +1,5 @@
 {
-  "weeks": [
+  "data": [
     {
       "week": 1,
       "start_date": "2024-03-01",
@@ -74,6 +74,51 @@
       "week": 15,
       "start_date": "2024-06-07",
       "end_date": "2024-06-13"
+    }
+  ],
+
+  "days": [
+    {
+      "id": "checkSun",
+      "label": "일",
+      "value": 0,
+      "checked": false
+    },
+    {
+      "id": "checkMon",
+      "label": "월",
+      "value": 1,
+      "checked": true
+    },
+    {
+      "id": "checkTue",
+      "label": "화",
+      "value": 2,
+      "checked": true
+    },
+    {
+      "id": "checkWed",
+      "label": "수",
+      "value": 3,
+      "checked": true
+    },
+    {
+      "id": "checkThu",
+      "label": "목",
+      "value": 4,
+      "checked": true
+    },
+    {
+      "id": "checkFri",
+      "label": "금",
+      "value": 5,
+      "checked": true
+    },
+    {
+      "id": "checkSat",
+      "label": "토",
+      "value": 6,
+      "checked": false
     }
   ]
 }

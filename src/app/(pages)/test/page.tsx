@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import LectureList from "@/app/(pages)/timetable/LectureList";
 
 // 서버 컴포넌트로 데이터 패칭
 const getLectureData = async () => {
@@ -82,10 +83,14 @@ export default function TimetablePage() {
             </div>
 
             <div id="time-table">
-                {/* 시간표 테이블 렌더링 */}
-                {Array.from({ length: maxTime }, (_, time) => (
-                    <TimeRow key={time} time={time} baseData={baseData} roomData={roomData} />
-                ))}
+                <table>
+                    <tbody>
+                        {/* 시간표 테이블 렌더링 */}
+                        {Array.from({ length: maxTime }, (_, time) => (
+                            <TimeRow key={time} time={time} baseData={baseData} roomData={roomData} />
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
             <div id="buttons">
@@ -121,27 +126,5 @@ const TimeRow = ({ time, baseData, roomData }) => {
                 )
             )}
         </tr>
-    );
-};
-
-// 강의 목록 컴포넌트
-const LectureList = ({ baseData }) => {
-    return (
-        <div id="lect-area">
-            {baseData.depts.map((dept) => (
-                <div key={dept.deptCode}>
-                    <h2>{dept.deptName}</h2>
-                    <div>
-                        {dept.grade.map((grade) =>
-                            grade.lects.map((lect) => (
-                                <div key={lect.code} className="lect">
-                                    {lect.title} [{lect.profName}]
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            ))}
-        </div>
     );
 };
