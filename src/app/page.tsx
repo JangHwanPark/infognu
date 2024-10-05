@@ -1,5 +1,4 @@
 import './subject.css';
-import Navigation from "@/components/Navigation";
 import TimeTableRow from "@/components/TimeTableRow";
 import EnrollmentSubjects from "@/components/EnrollmentSubjects";
 import SubjectsInformation from "@/components/SubjectsInformation";
@@ -54,7 +53,6 @@ export default async function SubjectManagement() {
 
     return (
         <div id="container">
-            <Navigation/>
             <header>
                 <h1>과목정보관리</h1>
                 <h2>과목정보</h2>
@@ -64,11 +62,7 @@ export default async function SubjectManagement() {
             <EnrollmentSubjects/>
             <TimeTableRow baseData={someBaseData} time={0}/>
 
-            <div>
-                <h2>테스트</h2>
-                <div></div>
-            </div>
-            <footer>
+            <footer className="my-10">
                 <ModalTimeTableSave/>
                 <p>© 2021. All rights reserved.</p>
             </footer>
